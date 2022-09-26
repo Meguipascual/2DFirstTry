@@ -39,7 +39,7 @@ public class BoardManager : MonoBehaviour
         {
             for (int y = 0; y < rows - 1; y++)
             {
-                gridPositions.Add(new Vector3(x, y, 0));
+                gridPositions.Add(new Vector3(x, y, 0f));
             }
         }
     }
@@ -56,7 +56,7 @@ public class BoardManager : MonoBehaviour
 
                 if (x == -1 || x == columns || y == -1 || y == rows)
                 {
-                    toInstantiate = outerWallTiles[Random.Range(0, wallTiles.Length)];
+                    toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
                 }
 
                 GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
@@ -73,15 +73,25 @@ public class BoardManager : MonoBehaviour
         return randomPosition;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
     {
-        
+        int objectCount = Random.Range(minimum, maximum + 1);
+        for (int i = 0; i < objectCount; i++)
+        {
+            Vector3 randomPosition = RandomPosition();
+            GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
+            Instantiate(tileChoice, randomPosition, Quaternion.identity);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void SetupScene(int level)
     {
-        
+        BoardSetup();
+        InitialiseList();
+        LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
+        LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
+        int enemyCount = (int)Mathf.Log(level, 2f);
+        LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+        Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
     }
 }
