@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using UnityEngine;
+using System;
+using System.Collections.Generic; 		//Allows us to use Lists.
 using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour
@@ -14,7 +13,8 @@ public class BoardManager : MonoBehaviour
 
         public Count(int min, int max)
         {
-            minimum = min; maximum = max;
+            minimum = min; 
+            maximum = max;
         }
     }
     [SerializeField] int columns = 8;
@@ -35,9 +35,9 @@ public class BoardManager : MonoBehaviour
     {
         gridPositions.Clear();
 
-        for (int x = 0; x < columns - 1; x++)
+        for (int x = 1; x < columns - 1; x++)
         {
-            for (int y = 0; y < rows - 1; y++)
+            for (int y = 1; y < rows - 1; y++)
             {
                 gridPositions.Add(new Vector3(x, y, 0f));
             }
