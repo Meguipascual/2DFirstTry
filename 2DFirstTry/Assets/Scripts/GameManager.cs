@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public BoardManager boardScript;
     private int level = 3;
+    public int playerFoodPoints = 100;
+    [HideInInspector] public bool playersTurn = true;
 
     // Start is called before the first frame update
     void Awake()
@@ -27,6 +29,12 @@ public class GameManager : MonoBehaviour
     {
         boardScript.SetupScene(level);
     }
+
+    public void GameOver()
+    {
+        enabled = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
