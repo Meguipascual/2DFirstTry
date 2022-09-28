@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Enemy : MovingObject
 {
-    //The amount of food points to subtract from the player when attacking.
     public int playerDamage;
-
-    //Variable of type Animator to store a reference to the enemy's Animator component.
     private Animator animator;
-    //Transform to attempt to move toward each turn.
     private Transform target;
-    //Boolean to determine whether or not enemy should skip a turn or move this turn.
     private bool skipMove;
+    public AudioClip enemyAttack1;
+    public AudioClip enemyAttack2;
 
 
     //Start overrides the virtual Start function of the base class.
@@ -89,6 +86,7 @@ public class Enemy : MovingObject
 
         //Set the attack trigger of animator to trigger Enemy attack animation.
         animator.SetTrigger("enemyAttack");
+        SoundManager.instance.RandomizeSfx(enemyAttack1, enemyAttack2);
 
     }
 }
